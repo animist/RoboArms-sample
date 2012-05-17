@@ -1,0 +1,37 @@
+h1= title
+
+script(src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js")
+script(src="socket.io/socket.io.js")
+script
+  $(function() {
+    var socket = io.connect();
+    socket.on('tick', function(date, count) {
+        $('#date').text(date);
+        $('#count').text(count);
+    });
+
+    $('#controller').bind('keypress', function(e) {
+      if (e.which == 98) {
+        socket.emit('handClose');
+      } else if (e.which == 121) {
+        socket.emit('handOpen');
+      } else if (e.which == 117) {
+        socket.emit('1stUp');
+      } else if (e.which == 110) {
+        socket.emit('1stDown');
+      } else if (e.which == 106) {
+        socket.emit('2ndDown');
+      } else if (e.which == 107) {
+        socket.emit('2ndUp');
+      } else if (e.which == 104) {
+        socket.emit('turnLeft');
+      } else if (e.which == 108) {
+        socket.emit('turnRight');
+      }
+    });
+  });
+
+form
+  input#controller(type="text")
+
+iframe(width="720", height="566", src="http://www.ustream.tv/embed/3457996", scrolling="no", frameborder="0", style="border: 0px none transparent;")
